@@ -1,0 +1,21 @@
+name: Docker CI Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+    
+    - name: Construir imagen Docker
+      run: docker build -t calculadora-mayte:test .
+    
+    - name: Ejecutar tests dentro de Docker
+      run: docker run --rm calculadora-mayte:test
